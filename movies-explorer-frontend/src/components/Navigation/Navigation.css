@@ -1,0 +1,29 @@
+.navigation__link {
+  color: #FFF;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  padding-right: 16px;
+  text-decoration: none;
+  transition: ease .4s;
+}
+
+.navigation__link:last-of-type {
+  padding-right: 0;
+}
+
+.navigation__link:hover {
+  opacity: 0.8;
+}
+
+.navigation__link_active {
+  font-weight: 500;
+}
+
+@media (max-width: 991px) {
+  .navigation__link {
+    font-size: 5px;
+    visibility: hidden;
+  }
+}
