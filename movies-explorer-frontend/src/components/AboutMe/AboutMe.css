@@ -4,43 +4,74 @@
   background-color: #202020;
   max-width: 1280px;
   box-sizing: border-box;
-  padding: 110px 70px 0 70px; 
-  position: relative;
+  padding: 110px 70px 0 70px;
 }
 
 .about-me__title {
   margin: 0;
   padding: 0;
-  margin-top: 66px;
   margin-bottom: 18px;
+  color: #FFF;
+  font-family: 'Inter','Arial', sans-serif;
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -2px;
 }
 
 .about-me__subtitle {
+  margin: 0;
+  padding: 0;
   max-width: 600px;
   color: #FFF;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 18px;
+  font-style: normal;
   font-weight: 500;
   line-height: 20px;
 }
 
+.about-me__columns {
+  margin-top: 66px;
+  max-width: 1140px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.about-me__info {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: 49px;
+}
+
 .about-me__text {
+  margin: 0;
+  padding: 0;
+  color: #FFF;
+  font-family: 'Inter','Arial', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
   line-height: 22px;
   max-width: 600px;
   margin-top: 26px;
 }
 
 .about-me__git-link {
+  margin: 0;
+  padding: 0;
   text-decoration: none;
   color: #FFF;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: normal;
-  position: absolute;
-  top: 536px;
-  left: 70px;
   transition: ease .4s;
+  margin-top: auto;
+  cursor: pointer;
 }
 
 .about-me__photo {
@@ -48,16 +79,13 @@
   min-height: 327px;
   border-radius: 10px;
   object-fit: cover;
-  position: absolute;
-  right: 70px;
-  top: 227px;
 }
 
 .about-me__git-link:hover {
   opacity: 0.7;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 769px) {
   .about-me {
     max-width: 100vw;
     padding: 90px 50px 0 50px; 
@@ -77,31 +105,32 @@
   }
 
   .about-me__text {
+    font-size: 12px;
     line-height: 18px;
     max-width: 348px;
     margin-top: 20px;
   }
 
-  .about-me__git-link {
-    top: 496px;
-    left: 50px;
-  }
-
   .about-me__photo {
     max-width: 255px;
     min-height: 307px;
-    right: 50px;
-    top: 207px;
   }
 }
 
-@media (max-width: 767px) {
-  .about-me {
-    padding: 70px 14px 0 14px; 
+@media (max-width: 600px) {
+
+  .about-me__columns {
+    margin-top: 62px;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .about-me__info {
+    margin: 0 auto;
+    margin-top: 38px;
   }
 
   .about-me__title {
-    margin-top: 452px;
     font-size: 30px;
     line-height: normal;
     letter-spacing: -1.2px;
@@ -119,15 +148,18 @@
     max-width: 100vw;
   }
 
-  .about-me__git-link {
-    top: 817px;
-    left: 14px;
-  }
-
   .about-me__photo {
     max-width: 292px;
     min-height: 352px;
-    right: 14px;
-    top: 181px;
+  }
+
+  .about-me__git-link {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 575px) {
+  .about-me {
+    padding: 70px 14px 0 14px; 
   }
 }

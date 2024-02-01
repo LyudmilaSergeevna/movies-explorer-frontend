@@ -1,4 +1,5 @@
 import React from 'react';
+import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
 function SearchForm(props) {
 
@@ -6,6 +7,7 @@ function SearchForm(props) {
     <form className="search-form">
       <input className="search-form__input" type="text" name="request" title=" " required placeholder="Фильм" value=''/>
       <button className="search-form__submit-button" type="submit"></button>
+      <FilterCheckbox />
     </form>
   );
 }

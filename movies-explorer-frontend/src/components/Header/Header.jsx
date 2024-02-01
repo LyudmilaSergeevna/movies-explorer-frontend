@@ -1,6 +1,7 @@
 import React from 'react';
 import Navigation from '../Navigation/Navigation';
 import { Link, useMatch } from 'react-router-dom';
+import ProfileButton from '../ProfileButton/ProfileButton';
 
 function Header(props) {
 
@@ -13,9 +14,9 @@ function Header(props) {
       {!routeMain ? 
       <>
         <Navigation />
-        <Link to="/profile" className="header__profile-link">Аккаунт
-          <div className="header__profile-icon"></div>
-        </Link>
+        <div className="header__profile-button">
+        <ProfileButton />
+        </div>
         <button className="header__menu-button" type="button" onClick={props.onClick}></button> 
       </> :
         <nav className="header__links">

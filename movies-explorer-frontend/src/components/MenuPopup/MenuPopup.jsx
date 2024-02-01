@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import ProfileButton from '../ProfileButton/ProfileButton';
 
 function MenuPopup(props) {
   
@@ -9,13 +10,13 @@ function MenuPopup(props) {
       <div className="menu-popup__container">
         <button className="menu-popup__close-button" type="button" onClick={props.onClose}></button>
         <nav className="menu-popup__links"> 
-        <NavLink to="/" className={({isActive}) => `menu-popup__link ${isActive ? "menu-popup__link_active" : ""}`} onClick={props.onClose}>Главная</NavLink>
+          <NavLink to="/" className={({isActive}) => `menu-popup__link ${isActive ? "menu-popup__link_active" : ""}`} onClick={props.onClose}>Главная</NavLink>
           <NavLink to="/movies" className={({isActive}) => `menu-popup__link ${isActive ? "menu-popup__link_active" : ""}`} onClick={props.onClose}>Фильмы</NavLink>
           <NavLink to="/saved-movies" className={({isActive}) => `menu-popup__link ${isActive ? "menu-popup__link_active" : ""}`} onClick={props.onClose}>Сохранённые фильмы</NavLink>
         </nav>
-        <Link to="/profile" className="header__profile-link menu-popup__profile-link" onClick={props.onClose}>Аккаунт
-          <div className="header__profile-icon"></div>
-        </Link>
+        <div className="menu-popup__profile-button">
+          <ProfileButton onClick={props.onClose} />
+        </div>
       </div>
     </div>
   );

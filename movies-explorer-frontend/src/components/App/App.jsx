@@ -30,19 +30,21 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {(routeMain || routeMovies || routeSavedMovies || routeProfile) ? <Header onClick={handleMenuClick} /> : <></>}
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/saved-movies" element={<SavedMovies />} />
-        <Route path="/profile" element={<Profile />} />   
-        <Route path="/signin" element={<Login />} />
-        <Route path="/signup" element={<Register />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-      {(routeMain || routeMovies ||routeSavedMovies) ? <Footer /> : <></>}
-      <MenuPopup isOpen={isMenuPopupOpen} onClose={closeMenuPopup}/>
+    <div className="root">
+      <div className="App">
+        {(routeMain || routeMovies || routeSavedMovies || routeProfile) ? <Header onClick={handleMenuClick} /> : <></>}
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/movies" element={<Movies />} />
+          <Route path="/saved-movies" element={<SavedMovies />} />
+          <Route path="/profile" element={<Profile />} />   
+          <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Register />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        {(routeMain || routeMovies ||routeSavedMovies) ? <Footer /> : <></>}
+        <MenuPopup isOpen={isMenuPopupOpen} onClose={closeMenuPopup}/>
+      </div>
     </div>
   );
 }

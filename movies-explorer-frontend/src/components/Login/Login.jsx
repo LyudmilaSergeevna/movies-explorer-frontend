@@ -5,9 +5,9 @@ function Login(props) {
   
   return (
   
-    <section className="login">
+    <main className="login">
       <ContainerWithForm title="Рады видеть!" buttonText="Войти"/>
-    </section>
+    </main>
   );
 }
 

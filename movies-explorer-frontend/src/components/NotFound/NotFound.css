@@ -11,7 +11,7 @@
   max-width: 400px;
   color: #FFF;
   text-align: center;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 140px;
   font-weight: 400;
   line-height: normal;
@@ -24,7 +24,7 @@
   max-width: 400px;
   color: #FFF;
   text-align: center;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: normal;
@@ -41,20 +41,21 @@
   background-color: transparent;
   color: #4285F4;
   text-align: center;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
   margin-top: 184px;
   margin-bottom: 60px;
   transition: ease .4s;
+  cursor: pointer;
 }
 
 .not-found__button:hover {
   opacity: 0.7;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 769px) {
   .not-found {
     max-width: 100vw;
     padding-top: 408px;

@@ -5,9 +5,9 @@ function Register(props) {
   
   return (
   
-    <section className="register">
+    <main className="register">
       <ContainerWithForm title="Добро пожаловать!" register={true} buttonText="Зарегистрироваться"/>
-    </section>
+    </main>
   );
 }
 

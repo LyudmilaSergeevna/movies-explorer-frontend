@@ -11,11 +11,11 @@ function NotFound() {
 
   return (
   
-    <section className="not-found">
+    <main className="not-found">
       <h1 className="not-found__title">404</h1>
       <p className="not-found__text">Страница не найдена</p>
-      <button className="not-found__button" onClick={handleClick}>Назад</button>
-    </section>
+      <button className="not-found__button" type="button" onClick={handleClick}>Назад</button>
+    </main>
 
   );
 }

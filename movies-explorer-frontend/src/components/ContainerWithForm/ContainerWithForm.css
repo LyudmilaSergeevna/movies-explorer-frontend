@@ -15,13 +15,14 @@
   background-position: center; 
   margin-bottom: 40px;
   transition: ease .4s;
+  cursor: pointer;
 }
 
 .container__title {
   margin: 0;
   padding: 0;
   color: #FFF;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 24px;
   font-weight: 500;
   line-height: normal;
@@ -37,7 +38,7 @@
   margin: 0;
   padding: 0;
   color: #8B8B8B;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 10px;
   font-weight: 400;
   line-height: normal;
@@ -51,12 +52,13 @@
   box-sizing: border-box;
   background: #2F2F2F;
   color: #FFF;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 13px;
   font-weight: 400;
   line-height: normal;
   padding: 15px;
   margin-bottom: 19px;
+  cursor: pointer;
 }
 
 .container__form-input:last-of-type {
@@ -70,6 +72,10 @@
   width: 100%;
   font-size: 10px;
   line-height: normal;
+  color: #EE3465;
+  font-family: 'Inter','Arial', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
 }
 
 .container__submit-button {
@@ -85,13 +91,14 @@
   background: #4285F4;
   color: #FFF;
   text-align: center;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: normal;
   margin-top: 67px;
   margin-bottom: 16px; 
   transition: ease .4s;
+  cursor: pointer;
 }
 
 .container__links {
@@ -107,7 +114,7 @@
   margin-right: 6px;
   color: #8B8B8B;
   text-align: center;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
@@ -117,11 +124,12 @@
   text-decoration: none;
   color: #4285F4;
   text-align: center;
-  font-family: Inter;
+  font-family: 'Inter','Arial', sans-serif;
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
   transition: ease .4s;
+  cursor: pointer;
 }
 
 .container__form-input:focus {
@@ -137,7 +145,7 @@
   transform: scale(1.09);
 }
 
-@media (max-width: 991px) {
+@media (max-width: 769px) {
   .container__links {
     margin-bottom: 232px;
   }

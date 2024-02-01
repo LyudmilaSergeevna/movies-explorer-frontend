@@ -13,16 +13,16 @@ function ContainerWithForm(props) {
           {props.register ? 
           <>
             <p className="container__input-label">Имя</p>
-            <input className="container__form-input" type="text" name="name" minLength="2" maxLength="30" required value=""/>
+            <input className="container__form-input" type="text" name="name" minLength="2" maxLength="30" required value="" placeholder="Имя"/>
           </> : <></>}
           <p className="container__input-label">E-mail</p>
-          <input className="container__form-input" type="email" name="email" required value="" />
+          <input className="container__form-input" type="email" name="email" required value="" placeholder="E-mail" />
           <p className="container__input-label">Пароль</p>
-          <input className="container__form-input" type="password" name="password" required value="" />
-          <span className="profile__input-error container__input-error"></span>
+          <input className="container__form-input" type="password" name="password" required value="" minLength="2" maxLength="30" placeholder="Пароль"/>
+          <span className="container__input-error"></span>
         </div>
         
-        <button className="container__submit-button">{`${props.buttonText}`}</button>
+        <button className="container__submit-button" type="submit">{`${props.buttonText}`}</button>
       </form>
       <div className="container__links">
         {props.register ? 

@@ -9,7 +9,7 @@
   background-color: #202020;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 769px) {
   .saved-movies {
     max-width: 100vw;
     padding: 80px 30px 30px 30px;

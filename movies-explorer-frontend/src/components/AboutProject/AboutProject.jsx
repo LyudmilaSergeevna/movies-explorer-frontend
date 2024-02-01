@@ -1,18 +1,19 @@
 import React from 'react';
+import Subtitle from '../Subtitle/Subtitle';
 
-function AboutProject(props) {
+function AboutProject() {
 
   return (
     <section className="about-project" id="about-project">
-      <h2 className="main__subtitle">О проекте</h2>
+      <Subtitle text="О проекте"/>
       <div className="about-project__columns">
         <div className="about-project__item">
           <h3 className="about-project__brief">Дипломный проект включал 5 этапов</h3>
-          <p className="main__text about-project__text">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
+          <p className="about-project__text">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
         </div>
         <div className="about-project__item">
           <h3 className="about-project__brief">На выполнение диплома ушло 5 недель</h3>
-          <p className="main__text about-project__text">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
+          <p className="about-project__text">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
         </div>
       </div>
       <div className="about-project__graph">
