@@ -1,0 +1,33 @@
+.profile-button {
+  text-decoration: none;
+  color: #FFF;
+  font-family: 'Inter','Arial', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 12px;
+  max-width: 100px;
+  min-height: 32px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 3px;
+  transition: ease .4s;
+  cursor: pointer;
+}
+
+.profile-button__icon {
+  width: 26px;
+  height: 26px;
+  border-radius: 50px;
+  background-color: #0F4157;
+  margin-left: 7px;
+  background-image: url('../../images/account_icon.svg');
+  background-size: 10.363px, 10.669px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.profile-button:hover {
+  opacity: 0.7;
+}
