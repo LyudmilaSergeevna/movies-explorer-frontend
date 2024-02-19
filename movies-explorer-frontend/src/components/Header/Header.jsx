@@ -11,7 +11,7 @@ function Header(props) {
   
     <header className={routeMain ? "header header_main" : "header"}>
       <Link to="/" className="header__logo-link"></Link>
-      {!routeMain ? 
+      {props.loggedIn ? 
       <>
         <Navigation />
         <div className="header__profile-button">

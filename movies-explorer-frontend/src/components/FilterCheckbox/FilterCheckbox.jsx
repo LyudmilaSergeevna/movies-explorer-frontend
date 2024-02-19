@@ -1,14 +1,23 @@
 import React from 'react';
+import { useMatch } from 'react-router-dom';
 
 function FilterCheckbox(props) {
 
-  const [isChecked, setChecked] = React.useState(false);
+  const filter = localStorage.getItem('filter');
+  const [isChecked, setChecked] = React.useState(0);
+  const routeMovies = useMatch('/movies');
+
+  React.useEffect(() => {
+    setChecked(routeMovies ? filter : false)
+  }, [])
 
   function handleClick() {
     if (isChecked) {
-      setChecked(false);
+      setChecked(false)
+      props.onFilterClick(false);
     } else {
-    setChecked(true);
+      setChecked(true);
+      props.onFilterClick(true);
     }
   }
 

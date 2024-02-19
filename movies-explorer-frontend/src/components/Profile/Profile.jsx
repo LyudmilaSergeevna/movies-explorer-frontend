@@ -1,37 +1,69 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useFormWithValidation } from '../Validation/Validation';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function Profile(props) {
   const [isButtonClick, setButtonClick] = React.useState(false);
   const [isDisabled, setDisabled] = React.useState(true);
+  const [disabledSubmitButton, setDisabledSubmitButton] = React.useState(true);
+  const { values, handleChange, errors, isValid, resetForm, isChange } = useFormWithValidation()
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const currentUser = React.useContext(CurrentUserContext);
+
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  },[currentUser]); 
+
+  React.useEffect(() => {
+    if (isChange) {
+      if (isValid) {
+          setDisabledSubmitButton(false)
+        } else {
+          setDisabledSubmitButton(true)
+        }
+    }
+  }, [isChange, isValid])
 
   function handleClick() {
     setButtonClick(true);
     setDisabled(false);
-
   }
 
-  function handleSubmitClick() {
+  function handleSubmit(evt) {
+      evt.preventDefault();
+      if (isValid) {
+      if (values.name !== name || values.email !== email) {
+        props.onUpdateUser({
+          name: values.name || name, 
+          email: values.email || email,
+        })
+      }
+    }
     setButtonClick(false);
     setDisabled(true);
+    setDisabledSubmitButton(true);
+    resetForm();
   }
 
   return (
     <main className="profile">
-      <h1 className="profile__title">Привет, user!</h1>
-      <form className="profile__form">
+      <h1 className="profile__title">{`Привет, ${name}`}</h1>
+      <form className="profile__form" onSubmit={handleSubmit} noValidate>
         <div className="profile__field">
           <p className="profile__field-label">Имя</p>
-          <input className="profile__field-label profile__input" type="text" name="name" title=" " minLength="2" maxLength="30" value="" disabled={isDisabled} placeholder="Имя"/>
+          <input className="profile__field-label profile__input" type="text" name="name" title=" " minLength="2" maxLength="30" value={values.name || name} disabled={isDisabled} placeholder="Имя" onChange={handleChange}/>
         </div>
         <div className="profile__field">
           <p className="profile__field-label">E-mail</p>
-          <input className="profile__field-label profile__input" type="email" name="email" title=" " value="" disabled={isDisabled} placeholder="E-mail"/>
+          <input className="profile__field-label profile__input" type="email" name="email" title=" " value={values.email || email} disabled={isDisabled} placeholder="E-mail" onChange={handleChange}/>
         </div>
         {!isButtonClick ? <><button className="profile__button" type="button" onClick={handleClick}>Редактировать</button>
-        <Link to="/signin" className="profile__link">Выйти из аккаунта</Link></> : 
-        <><span className="profile__input-error"></span>
-        <button className="profile__submit-button" type="submit" onClick={handleSubmitClick}>Сохранить</button></>}
+        <Link to="/" className="profile__link" onClick={props.logout} >Выйти из аккаунта</Link></> : 
+        <><span className="profile__input-error">{errors.name}</span>
+        <button className={!disabledSubmitButton ? "profile__submit-button" : "profile__submit-button profile__submit-button_disabled"} type="submit" disabled={disabledSubmitButton}>Сохранить</button></>}
       </form>
     </main>
   );
