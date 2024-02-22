@@ -25,6 +25,8 @@ function Movies(props) {
     }  
   }, []); 
 
+  console.log(foundMovies)
+
   function likedMovies(arr) {
     let likedArr=[];
     let filteredArr=[];
