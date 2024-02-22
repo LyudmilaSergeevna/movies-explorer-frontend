@@ -42,6 +42,7 @@ function Movies(props) {
             return filteredArr.splice(filteredArr.indexOf(item), 1)
           })
           filteredArr.sort((a, b) => a.id > b.id ? 1 : -1)
+          console.log(filteredArr)
           props.setMovies(filteredArr)
           setArray(filteredArr)   
       } else {
