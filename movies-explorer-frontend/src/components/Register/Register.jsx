@@ -10,7 +10,6 @@ const Register = (props) => {
 
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation()
 
-  //.log(isValid)
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const { name, email, password } = values;
@@ -24,8 +23,6 @@ const Register = (props) => {
       .catch((err) => {
         console.log(err);
       })
-      //props.status(true);
-      //props.onInfoTooltip();
     })
     .catch((err) => {
       console.log(err);
