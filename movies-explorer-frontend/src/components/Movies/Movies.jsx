@@ -32,6 +32,7 @@ function Movies(props) {
 
     api.getMovies()
       .then((moviesArray) => {
+        console.log(moviesArray)
         if (moviesArray.length !== 0) {
           moviesArray.forEach((movie) => {
           arr.map((item) => (item.id === movie.movieId ? (likedArr.push({...item, liked: true,  _id: movie._id}), toFilter.push(item)) : likedArr.push(item)));

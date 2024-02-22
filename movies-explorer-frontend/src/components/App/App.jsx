@@ -193,7 +193,6 @@ function App() {
   }
   }
 
-console.log(savedMovies)
   function deleteMovie(movie) {
     api.unlikeMovie(movie._id)
       .then(() => {
@@ -266,7 +265,7 @@ console.log(savedMovies)
             logout={handleLogout}
             onUpdateUser={handleUpdateUser}/>} />   
             <Route path="/signin" element={<Login handleLogin={handleLogin} tokenCheck={tokenCheck}/>} />
-            <Route path="/signup" element={<Register />} />
+            <Route path="/signup" element={<Register tokenCheck={tokenCheck} handleLogin={handleLogin}/>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           {(routeMain || routeMovies ||routeSavedMovies) ? <Footer /> : <></>}

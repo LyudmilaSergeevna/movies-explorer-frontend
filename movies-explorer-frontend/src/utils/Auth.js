@@ -1,7 +1,6 @@
 import checkResponse from "./CheckResponse";
-//export const BASE_URL = process.env.REACT_APP_API_URL;
-export const BASE_URL = 'http://localhost:3000'
-
+export const BASE_URL = process.env.REACT_APP_API_URL;
+//export const BASE_URL = 'http://localhost:3000';
 
 export const register = (name, email, password) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -29,6 +28,7 @@ export const login = (email, password) => {
   .then(checkResponse)
   .then((data) => {
     if (data.token){
+
       localStorage.setItem('token', data.token);
       return data;
     }

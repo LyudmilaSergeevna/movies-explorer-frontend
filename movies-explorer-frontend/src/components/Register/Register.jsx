@@ -16,9 +16,13 @@ const Register = (props) => {
     Auth.register(name, email, password)
     .then(() => {
       Auth.login(email, password)
-      .then(() => {
-        resetForm()
-        navigate('/movies', {replace: true});
+      .then((data) => {
+        if (data.token){
+          props.tokenCheck();
+          resetForm();
+          props.handleLogin();
+          navigate("/movies", {replace: true});
+        }
       })
       .catch((err) => {
         console.log(err);
