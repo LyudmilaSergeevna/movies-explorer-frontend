@@ -29,8 +29,11 @@ const Register = (props) => {
     })
     .catch((err) => {
       console.log(err);
-      if (err.name === 'Error') {
+      if (err.message === 'Ошибка 409') {
         alert('Пользователь с таким email уже зарегистрирован')
+      }
+      if (err.message === 'Ошибка 400') {
+        alert('Введены некорректные данные')
       }
     })
   }

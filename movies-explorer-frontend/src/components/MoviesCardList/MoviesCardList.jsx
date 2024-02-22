@@ -9,17 +9,17 @@ function MoviesCardList(props) {
 
   return (
     <section className="movies-card-list">
-      {props.preloader ? <Preloader /> : props.apiError ? <p className="movies-card-list__text">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</p> : (props.noMatch ? <p className="movies-card-list__text">Ничего не найдено</p> : 
-      <>
-      {routeMovies ?
+      {props.preloader ? <Preloader /> : props.apiError ? <p className="movies-card-list__text">Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.</p> : 
+      (routeMovies ? (props.noMatch ? <p className="movies-card-list__text">Ничего не найдено</p> : 
         <>{props.movies.map((item, index) => {
           return (index<props.i) ? <MoviesCard key={item.id} movie={item} likeMovie={props.likeMovie} isLiked={props.isLiked}/> : null
-        })}</> : <>
-        {props.savedMovies.map((item) => {
+        })}</>) : 
+        (props.noMatchSavedMovies ? <p className="movies-card-list__text">Ничего не найдено</p> : 
+        <>{props.savedMovies.map((item) => {
           return <MoviesCard key={item._id} movie={item} deleteMovie={props.deleteMovie}/>
-        })}</>}
-      </>)}
-    </section>
+        })}</>)
+      )}
+    </section> 
   );
 }
 

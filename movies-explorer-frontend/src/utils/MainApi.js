@@ -92,7 +92,8 @@ class MainApi {
   }
 
 const optionsApi = {
-  url: process.env.REACT_APP_API_URL,
+  //url: process.env.REACT_APP_API_URL,
+  url: 'http://localhost:3000'
 } 
 
 const api = new MainApi(optionsApi)

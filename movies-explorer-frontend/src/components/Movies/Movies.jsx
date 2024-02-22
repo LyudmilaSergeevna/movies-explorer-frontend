@@ -40,8 +40,9 @@ function Movies(props) {
           toFilter.forEach((item) => {
             return filteredArr.splice(filteredArr.indexOf(item), 1)
           })
+          filteredArr.sort((a, b) => a.id > b.id ? 1 : -1)
           props.setMovies(filteredArr)
-          setArray(filteredArr)
+          setArray(filteredArr)   
       } else {
         props.setMovies(arr)
         setArray(arr)
@@ -100,7 +101,7 @@ function Movies(props) {
     <main className="movies">
       <SearchForm onSearchSubmit={props.onSearchSubmit} inputText={request} setFiltered={props.setFiltered} onFilterClick={props.onFilterClick} filter={props.filter} />
       <MoviesCardList array={array} i={i} movies={props.movies} preloader={props.preloader} noMatch={props.noMatch} apiError={props.apiError} likeMovie={props.onLikeMovie} isLiked={props.isLiked} defaultMovies={defaultMovies}/>
-      <button className={buttonHid ? "movies__more-button movies__more-button_hidden" : "movies__more-button"} type="button" hidden={props.hidden} onClick={handleMoreClick}>Ещё</button>
+      <button className={buttonHid ? "movies__more-button movies__more-button_hidden" : "movies__more-button"} type="button" onClick={handleMoreClick}>Ещё</button>
     </main>
   );
 }

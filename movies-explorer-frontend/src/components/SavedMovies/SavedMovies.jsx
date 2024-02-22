@@ -6,21 +6,31 @@ import api from '../../utils/MainApi'
 function SavedMovies(props) {
 
   const [moviesArray, setMoviesArray] = React.useState([]);
+  const [foundMovies, setFoundMovies] = React.useState([]);
 
   React.useEffect(() => {
+    setMoviesArray(props.savedMovies)
     api.getMovies()
     .then((moviesArray) => {
       setMoviesArray(moviesArray)
+      setFoundMovies('') 
     })
     .catch((err) => {
       console.log(err);
     }) 
   }, [props.savedMovies])
 
+  console.log(props.foundSavedMovies)
+  React.useEffect(() => {
+    if (props.foundSavedMovies.length > 0) {
+      setFoundMovies(props.foundSavedMovies)
+    }
+   }, [props.foundSavedMovies])
+
   return (
     <main className="saved-movies">
       <SearchForm onSearchSubmit={props.onSearchSubmit} onFilterClick={props.onFilterClick}/>
-      <MoviesCardList savedMovies={moviesArray} deleteMovie={props.onDeleteMovie} />
+      <MoviesCardList savedMovies={foundMovies.length > 0 ? foundMovies : moviesArray} deleteMovie={props.onDeleteMovie} noMatchSavedMovies={props.noMatchSavedMovies} />
       <div className="saved-movies__devider"></div>
     </main>
   );
