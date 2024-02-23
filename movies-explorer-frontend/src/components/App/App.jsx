@@ -31,6 +31,7 @@ function App() {
   const [bitfilmApiError, setBitFilmApiError] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({});
   const [filtered, setFiltered] = React.useState(false);
+  const [filteredSavedM, setFilteredSavedM] = React.useState(false);
   const JWT = localStorage.getItem('token');
   const [loggedIn, setLoggedIn] = React.useState(JWT);
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ function App() {
       })  
     }}, [loggedIn]);
 
+
   function handleUpdateUser(data) {
     api.patchUserInfo(data)
       .then((res) => {
@@ -71,54 +73,83 @@ function App() {
     setMenuPopupOpen(false);
   }
 
-  function handleFilterCheck(filter, saved) {
+  function handleFilterCheck(filter) {
     const filteredMovies = [];
     const movies = JSON.parse(localStorage.getItem('foundMovies'));
     if (filter) {
-      if (saved) {
-        if (savedMovies.length>0) {
-        savedMovies.forEach((element) => {
-          if (element.duration < 41) {
-            filteredMovies.push(element);
-            return filteredMovies;
+        if (movies !== null) {
+          movies.forEach((element) => {
+            if (element.duration < 41) {
+              filteredMovies.push(element);
+              return filteredMovies;
+            }
+          })
+          if (filteredMovies.length === 0) {
+            setNoMatch(true);
+          } else { 
+          localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+          localStorage.setItem('filter', filter);
+          setMovies(filteredMovies);
           }
-        }) 
-        if (filteredMovies.length === 0) {
-          setNoMatchSavedMovies(true);
-        } else { 
-        setFoundSavedMovies(filteredMovies);
         }
-      }
-      } else {
-      if (localStorage.getItem('foundMovies')) {
-        movies.forEach((element) => {
-          if (element.duration < 41) {
-            filteredMovies.push(element);
-            return filteredMovies;
-          }
-        })
-        if (filteredMovies.length === 0) {
-          setNoMatch(true);
-        } else { 
-        localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
-        localStorage.setItem('filter', filter);
-        setMovies(filteredMovies);
-        }
-      }
-  }} else {
-    if (saved) {
-      setNoMatchSavedMovies(false);
-      setFoundSavedMovies(savedMovies);
     } else {
     localStorage.removeItem('filter');
     localStorage.removeItem('filteredMovies');
     setNoMatch(false);
-    setMovies(movies);
+    console.log(movies)
+    if (movies === null) {
+      setMovies([])
+    } else {
+    setMovies(movies); 
+    }
     }
   }
+
+  function handleFilterCheckSavedMovies(filter) {
+    const filteredMovies = [];
+    if (filter) {
+      if (savedMovies.length > 0) {
+        savedMovies.forEach((element) => {
+          if (element.duration < 41) {
+          filteredMovies.push(element);
+          return filteredMovies;
+        }
+        })
+      if (filteredMovies.length === 0) {
+        setNoMatchSavedMovies(true);
+      } else { 
+        setFoundSavedMovies(filteredMovies);
+      }
+      }
+    } else {
+      setNoMatchSavedMovies(false);
+      setFoundSavedMovies(savedMovies);
+    }
   }
 
-  function findMovies(request, array, filter, saved) {
+  function findMovies(request, array) {
+    const foundMovies = [];
+    array.forEach((element) => { 
+      const movieRequest = request.toLowerCase();
+      const movieNameRu = element.nameRU.toLowerCase();
+      const movieNameEn = element.nameEN.toLowerCase();
+      if (movieNameRu.includes(movieRequest) || movieNameEn.includes(movieRequest)) {
+        foundMovies.push(element);
+        return foundMovies;
+      }
+    })
+    if (foundMovies.length === 0) {
+      setNoMatch(true);
+      } else {
+    setNoMatch(false);
+    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+    localStorage.setItem('request', request);
+    setMovies(foundMovies);
+      }
+  }
+
+
+  function findSavedMovies(request, array) {
     const foundMovies = [];
     array.forEach((element) => { 
       const movieRequest = request.toLowerCase();
@@ -129,32 +160,26 @@ function App() {
         return foundMovies;
       }
     });
-    if (filter) {
-      handleFilterCheck(filter)
+    if (filtered) {
+      handleFilterCheckSavedMovies()
     } else {
     if (foundMovies.length === 0) {
-      setNoMatch(true);
+      setNoMatchSavedMovies(true);
     } else {
-      if (saved) {
         setFoundSavedMovies(foundMovies)
-      } else {
-    setNoMatch(false);
-    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
-    localStorage.setItem('request', request);
-    setMovies(foundMovies);
+        setNoMatch(false);
       }
     }
   }
-  }
 
-  function handleSearchSubmit(data, filter, saved) {
+  function handleSearchSubmit(data, saved) {
     const request = data;  
     if (localStorage.getItem('movies')) {
       const movies = JSON.parse(localStorage.getItem('movies'));
     if (saved) {
-      findMovies(request, savedMovies, filter, saved)
+      findSavedMovies(request, savedMovies)
     } else {
-      findMovies(request, movies, filter);   
+      findMovies(request, movies);   
     }} else {
       setPreloader(true)
       moveisApi.getMovies()
@@ -170,6 +195,7 @@ function App() {
       })
     }
   }
+
 
  function handleCardLike(movie) {
     if (!movie.liked) {
@@ -216,7 +242,7 @@ function App() {
     setLoggedIn(true);
     navigate("/movies", {replace: true})
   } 
-
+ 
   function tokenCheck() {
     if (localStorage.getItem('token')) {
       const jwt = localStorage.getItem('token'); 
@@ -248,7 +274,7 @@ function App() {
             preloader={preloader} 
             apiError={bitfilmApiError}
             setMovies={setMovies}
-            setFiltered={setFiltered} 
+            setFiltered={setFiltered}  
             onSearchSubmit={handleSearchSubmit} 
             onFilterClick={handleFilterCheck}
             onLikeMovie={handleCardLike}/> } />
@@ -258,8 +284,10 @@ function App() {
             savedMovies={savedMovies}
             onDeleteMovie={deleteMovie}
             noMatchSavedMovies={noMatchSavedMovies}
+            setFilteredSavedM={setFilteredSavedM}
             onSearchSubmit={handleSearchSubmit} 
-            onFilterClick={handleFilterCheck} />} />
+            onFilterClick={handleFilterCheckSavedMovies}
+            setNoMatchSavedMovies={setNoMatchSavedMovies} />} />
             <Route path="/profile" element={<ProtectedRoute element={Profile}
             loggedIn={loggedIn}
             logout={handleLogout}

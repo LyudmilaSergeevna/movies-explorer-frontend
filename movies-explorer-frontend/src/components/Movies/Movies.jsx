@@ -23,9 +23,7 @@ function Movies(props) {
         likedMovies(foundMovies)
       }
     }  
-  }, []); 
-
-  console.log(foundMovies)
+  }, [foundMovies, filteredMovies]); 
 
   function likedMovies(arr) {
     let likedArr=[];
@@ -34,7 +32,6 @@ function Movies(props) {
 
     api.getMovies()
       .then((moviesArray) => {
-        console.log(moviesArray)
         if (moviesArray.length !== 0) {
           moviesArray.forEach((movie) => {
           arr.map((item) => (item.id === movie.movieId ? (likedArr.push({...item, liked: true,  _id: movie._id}), toFilter.push(item)) : likedArr.push(item)));
@@ -44,7 +41,6 @@ function Movies(props) {
             return filteredArr.splice(filteredArr.indexOf(item), 1)
           })
           filteredArr.sort((a, b) => a.id > b.id ? 1 : -1)
-          console.log(filteredArr)
           props.setMovies(filteredArr)
           setArray(filteredArr)   
       } else {
@@ -103,7 +99,7 @@ function Movies(props) {
 
   return (
     <main className="movies">
-      <SearchForm onSearchSubmit={props.onSearchSubmit} inputText={request} setFiltered={props.setFiltered} onFilterClick={props.onFilterClick} filter={props.filter} />
+      <SearchForm onSearchSubmit={props.onSearchSubmit} inputText={request} setFiltered={props.setFiltered} onFilterClick={props.onFilterClick} />
       <MoviesCardList array={array} i={i} movies={props.movies} preloader={props.preloader} noMatch={props.noMatch} apiError={props.apiError} likeMovie={props.onLikeMovie} isLiked={props.isLiked} defaultMovies={defaultMovies}/>
       <button className={buttonHid ? "movies__more-button movies__more-button_hidden" : "movies__more-button"} type="button" onClick={handleMoreClick}>Ещё</button>
     </main>

@@ -30,7 +30,7 @@ function SearchForm(props) {
       if (savedMovieRequest === '') {
         setError('Нужно ввести ключевое слово');
     } else {
-      props.onSearchSubmit(savedMovieRequest, filter, true)
+      props.onSearchSubmit(savedMovieRequest, true)
     }
   }
 
@@ -51,12 +51,12 @@ function SearchForm(props) {
         <input className="search-form__input" type="text" name="request" title=" " required placeholder="Фильм" value={savedMovieRequest ||''} onChange={handleChangeSavedMovieRequest} onFocus={handleFocusInputSavedMovies}/>
         <span className="search-form__input-error">{errorSavedMovies}</span>
         <button className="search-form__submit-button" type="submit"></button>
-        <FilterCheckbox setFiltered={props.setFiltered} onFilterClick={props.onFilterClick} filter={props.filter}/>
+        <FilterCheckbox setFilteredSavedM={props.setFilteredSavedM} onFilterClick={props.onFilterClick} />
       </> : <>
         <input className="search-form__input" type="text" name="request" title=" " required placeholder="Фильм" value={movieRequest || ''} onChange={handleChangeMovieRequest} onFocus={handleFocusInput}/>
         <span className="search-form__input-error">{error}</span>
         <button className="search-form__submit-button" type="submit"></button>
-        <FilterCheckbox setFiltered={props.setFiltered} onFilterClick={props.onFilterClick} filter={props.filter}/>
+        <FilterCheckbox setFiltered={props.setFiltered} onFilterClick={props.onFilterClick} />
       </>}
     </form>
   );
