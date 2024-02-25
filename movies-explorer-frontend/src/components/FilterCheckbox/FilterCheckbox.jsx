@@ -17,11 +17,11 @@ function FilterCheckbox(props) {
     if (isChecked) {
       setChecked(false)
       props.setFiltered(false)
-      props.onFilterClick(false);
+      props.handleSubmit(false)
     } else {
       setChecked(true);
       props.setFiltered(true)
-      props.onFilterClick(true);
+      props.handleSubmit(true)
     }
   }
 
@@ -29,11 +29,11 @@ function FilterCheckbox(props) {
     if (isCheckedSavedMovies) {
       setCheckedSavedMovies(false)
       props.setFilteredSavedM(false)
-      props.onFilterClick(false);
+      props.handleSubmitSavedMovie(false)
     } else {
       setCheckedSavedMovies(true);
       props.setFilteredSavedM(true)
-      props.onFilterClick(true);
+      props.handleSubmitSavedMovie(true)
     }
   }
 

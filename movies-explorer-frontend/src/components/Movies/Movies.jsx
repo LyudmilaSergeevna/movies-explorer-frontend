@@ -55,6 +55,7 @@ function Movies(props) {
     } 
 
   React.useEffect(() => {
+    setDefaultMovies(0)
     if (props.movies.length !== 0) {
     if (props.movies.length>=defaultMovies) {
       setButton(false)
@@ -63,8 +64,10 @@ function Movies(props) {
     }} else { setButton(true) }
   }, [props.movies]);
 
+
   React.useEffect(() => {
     const handleResize = () => {
+      setDefaultMovies(0)
       if (window.innerWidth >= 1280) {
         setDefaultMovies(12);
         setStepMovies(3);
@@ -91,7 +94,7 @@ function Movies(props) {
 
   function handleMoreClick() {
     setI(i+stepMovies)
-    if (i+stepMovies >=array.length) {
+    if (i+stepMovies >= props.movies.length) {
       setButton(true)
     }      
   }  

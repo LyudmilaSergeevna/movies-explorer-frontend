@@ -30,7 +30,7 @@ function App() {
   const [noMatchSavedMovies, setNoMatchSavedMovies] = React.useState(false)
   const [bitfilmApiError, setBitFilmApiError] = React.useState(false)
   const [currentUser, setCurrentUser] = React.useState({});
-  const [filtered, setFiltered] = React.useState(false);
+  const [filtered, setFiltered] = React.useState(localStorage.getItem('filter') ? localStorage.getItem('filter') : false);
   const [filteredSavedM, setFilteredSavedM] = React.useState(false);
   const JWT = localStorage.getItem('token');
   const [loggedIn, setLoggedIn] = React.useState(JWT);
@@ -39,7 +39,7 @@ function App() {
   const [foundSavedMovies, setFoundSavedMovies] = React.useState([]);
   //const [filteredSavedMovies, setFilteredSavedMovies] = React.useState([]);
 
-
+//console.log(filtered)
   React.useEffect(() => {
     tokenCheck()
     if (loggedIn) {
@@ -77,7 +77,6 @@ function App() {
     const filteredMovies = [];
     const movies = JSON.parse(localStorage.getItem('foundMovies'));
     if (filter) {
-        if (movies !== null) {
           movies.forEach((element) => {
             if (element.duration < 41) {
               filteredMovies.push(element);
@@ -91,22 +90,16 @@ function App() {
           localStorage.setItem('filter', filter);
           setMovies(filteredMovies);
           }
-        }
     } else {
     localStorage.removeItem('filter');
     localStorage.removeItem('filteredMovies');
     setNoMatch(false);
-    console.log(movies)
-    if (movies === null) {
-      setMovies([])
-    } else {
-    setMovies(movies); 
-    }
     }
   }
 
   function handleFilterCheckSavedMovies(filter) {
     const filteredMovies = [];
+    const savedMovies = JSON.parse(localStorage.getItem('foundSavedMovies'));
     if (filter) {
       if (savedMovies.length > 0) {
         savedMovies.forEach((element) => {
@@ -115,19 +108,19 @@ function App() {
           return filteredMovies;
         }
         })
+        console.log(filteredMovies)
       if (filteredMovies.length === 0) {
         setNoMatchSavedMovies(true);
       } else { 
         setFoundSavedMovies(filteredMovies);
       }
-      }
+      } 
     } else {
       setNoMatchSavedMovies(false);
-      setFoundSavedMovies(savedMovies);
     }
   }
 
-  function findMovies(request, array) {
+  function findMovies(request, array, filter) {
     const foundMovies = [];
     array.forEach((element) => { 
       const movieRequest = request.toLowerCase();
@@ -141,15 +134,19 @@ function App() {
     if (foundMovies.length === 0) {
       setNoMatch(true);
       } else {
+        localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+        localStorage.setItem('request', request);
+        if (filter) {
+          handleFilterCheck(true)
+        } else {
+          handleFilterCheck(false)
     setNoMatch(false);
-    localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
-    localStorage.setItem('request', request);
     setMovies(foundMovies);
-      }
+      }}
   }
 
 
-  function findSavedMovies(request, array) {
+  function findSavedMovies(request, array, filter) {
     const foundMovies = [];
     array.forEach((element) => { 
       const movieRequest = request.toLowerCase();
@@ -160,42 +157,55 @@ function App() {
         return foundMovies;
       }
     });
-    if (filtered) {
-      handleFilterCheckSavedMovies()
-    } else {
     if (foundMovies.length === 0) {
       setNoMatchSavedMovies(true);
-    } else {
-        setFoundSavedMovies(foundMovies)
-        setNoMatch(false);
+      } else {
+         localStorage.setItem('foundSavedMovies', JSON.stringify(foundMovies));
+        if (filter) {
+          handleFilterCheckSavedMovies(true)
+        } else {
+          handleFilterCheckSavedMovies(false)
+          setNoMatchSavedMovies(false);
+          setFoundSavedMovies(foundMovies);
+        }
       }
-    }
   }
 
-  function handleSearchSubmit(data, saved) {
-    const request = data;  
-    if (localStorage.getItem('movies')) {
-      const movies = JSON.parse(localStorage.getItem('movies'));
+  function handleSearchSubmit(data, filter, saved) {
+    const request = data; 
     if (saved) {
-      findSavedMovies(request, savedMovies)
+      if (filter === undefined || filter === null) {
+        findSavedMovies(request, savedMovies, filteredSavedM);
+      } else {
+      findSavedMovies(request, savedMovies, filter); 
+      }  
     } else {
-      findMovies(request, movies);   
-    }} else {
+      if (localStorage.getItem('movies')) {
+        const movies = JSON.parse(localStorage.getItem('movies'));
+        if (filter === undefined) {
+          findMovies(request, movies, filtered);
+        } else {
+        findMovies(request, movies, filter); 
+        }  
+      } else {
       setPreloader(true)
       moveisApi.getMovies()
         .then((moviesArray) => {
           localStorage.setItem('movies', JSON.stringify(moviesArray));
-          const movies = JSON.parse(localStorage.getItem('movies'));
-          findMovies(request, movies);
+          if (filter === undefined) {
+            findMovies(request, moviesArray, filtered);
+          } else {
+          findMovies(request, moviesArray, filter); 
+          }  
           setPreloader(false);
         })
       .catch((err) => {
         setBitFilmApiError(true);
         console.log(err)
       })
+      }
     }
   }
-
 
  function handleCardLike(movie) {
     if (!movie.liked) {
@@ -276,7 +286,6 @@ function App() {
             setMovies={setMovies}
             setFiltered={setFiltered}  
             onSearchSubmit={handleSearchSubmit} 
-            onFilterClick={handleFilterCheck}
             onLikeMovie={handleCardLike}/> } />
             <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} 
             loggedIn={loggedIn} 
@@ -286,7 +295,6 @@ function App() {
             noMatchSavedMovies={noMatchSavedMovies}
             setFilteredSavedM={setFilteredSavedM}
             onSearchSubmit={handleSearchSubmit} 
-            onFilterClick={handleFilterCheckSavedMovies}
             setNoMatchSavedMovies={setNoMatchSavedMovies} />} />
             <Route path="/profile" element={<ProtectedRoute element={Profile}
             loggedIn={loggedIn}
