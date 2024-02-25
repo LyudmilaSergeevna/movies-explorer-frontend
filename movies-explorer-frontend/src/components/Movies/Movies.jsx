@@ -49,6 +49,7 @@ function Movies(props) {
       })
       .catch((err) => {
         console.log(err);
+        alert(err)
       })  
 
     } 

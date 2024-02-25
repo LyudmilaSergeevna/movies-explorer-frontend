@@ -17,6 +17,7 @@ function SavedMovies(props) {
     })
     .catch((err) => {
       console.log(err);
+      alert(err)
     }) 
   }, [props.savedMovies])
 

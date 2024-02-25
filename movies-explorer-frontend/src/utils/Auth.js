@@ -32,7 +32,10 @@ export const login = (email, password) => {
       return data;
     }
   })
-  .catch(err => console.log(err))
+  .catch(err => {
+    console.log(err)
+    alert(err)
+  })
 }; 
 
 export const tokenCheck = (token) => {
@@ -45,5 +48,8 @@ export const tokenCheck = (token) => {
   })
   .then(checkResponse)
   .then(data => data)
-  .catch(err => console.log(err))
+  .catch(err => {
+    console.log(err)
+    alert(err)
+  })
 } 

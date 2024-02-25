@@ -49,6 +49,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        alert(err)
       })  
     }}, [loggedIn]);
 
@@ -61,6 +62,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        alert(err)
       })
   }
 
@@ -201,6 +203,7 @@ function App() {
       .catch((err) => {
         setBitFilmApiError(true);
         console.log(err)
+        alert(err)
       })
       }
     }
@@ -215,6 +218,7 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          alert(err)
         })
     } else {
       api.unlikeMovie(movie._id)
@@ -224,6 +228,7 @@ function App() {
      })
      .catch((err) => {
        console.log(err);
+       alert(err)
       })
   }
   }
@@ -238,6 +243,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        alert(err)
       })
   }
 
@@ -264,6 +270,7 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          alert(err)
         })
       } else {navigate("/signin", {replace: true})}
     }
