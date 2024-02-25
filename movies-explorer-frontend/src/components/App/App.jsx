@@ -37,9 +37,8 @@ function App() {
   const navigate = useNavigate();
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundSavedMovies, setFoundSavedMovies] = React.useState([]);
-  //const [filteredSavedMovies, setFilteredSavedMovies] = React.useState([]);
 
-//console.log(filtered)
+
   React.useEffect(() => {
     tokenCheck()
     if (loggedIn) {
@@ -251,6 +250,7 @@ function App() {
   const handleLogin = () => {
     setLoggedIn(true);
     navigate("/movies", {replace: true})
+    setMovies([])
   } 
  
   function tokenCheck() {

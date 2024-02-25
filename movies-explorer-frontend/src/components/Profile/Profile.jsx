@@ -86,6 +86,12 @@ function Profile(props) {
       }
   }
 
+  function handleLogoutClick() {
+    props.logout()
+    localStorage.removeItem('movies')
+
+  }
+
   
   return (
     <main className="profile">
@@ -100,7 +106,7 @@ function Profile(props) {
           <input className="profile__field-label profile__input" type="email" name="email" title=" " value={values.email || email} disabled={isDisabled} placeholder="E-mail" onChange={handleChange}/>
         </div>
         {!isButtonClick ? <><button className="profile__button" type="button" onClick={handleClick}>Редактировать</button>
-        <Link to="/" className="profile__link" onClick={props.logout} >Выйти из аккаунта</Link></> : 
+        <Link to="/" className="profile__link" onClick={handleLogoutClick} >Выйти из аккаунта</Link></> : 
         <><span className="profile__input-error">{errors.name}</span>
         <button className={!disabledSubmitButton ? "profile__submit-button" : "profile__submit-button profile__submit-button_disabled"} type="submit" disabled={disabledSubmitButton}>Сохранить</button></>}
       </form>

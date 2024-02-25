@@ -20,9 +20,8 @@ function Movies(props) {
       if (filteredMovies && filter) {
         likedMovies(filteredMovies)         
       } else {
-        likedMovies(foundMovies)
-      }
-    }  
+        likedMovies(foundMovies)  
+    }}
   }, []); 
 
   function likedMovies(arr) {
