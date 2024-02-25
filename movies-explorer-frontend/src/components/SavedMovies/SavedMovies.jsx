@@ -30,7 +30,7 @@ function SavedMovies(props) {
   return (
     <main className="saved-movies">
       <SearchForm onSearchSubmit={props.onSearchSubmit} onFilterClick={props.onFilterClick} setFilteredSavedM={props.setFilteredSavedM}/>
-      <MoviesCardList savedMovies={foundMovies.length > 0 ? foundMovies : moviesArray} deleteMovie={props.onDeleteMovie} noMatchSavedMovies={props.noMatchSavedMovies} setNoMatchSavedMovies={props.setNoMatchSavedMovies} />
+      <MoviesCardList savedMovies={foundMovies.length > 0 ? foundMovies : moviesArray} deleteMovie={props.onDeleteMovie} noMatchSavedMovies={props.noMatchSavedMovies} />
       <div className="saved-movies__devider"></div>
     </main>
   );

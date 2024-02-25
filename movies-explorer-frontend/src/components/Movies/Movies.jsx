@@ -23,7 +23,7 @@ function Movies(props) {
         likedMovies(foundMovies)
       }
     }  
-  }, [foundMovies, filteredMovies]); 
+  }, []); 
 
   function likedMovies(arr) {
     let likedArr=[];

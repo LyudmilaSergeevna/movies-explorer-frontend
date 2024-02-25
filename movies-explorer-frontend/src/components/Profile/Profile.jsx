@@ -33,21 +33,60 @@ function Profile(props) {
   }
 
   function handleSubmit(evt) {
+    let i=0
       evt.preventDefault();
-      if (isValid) {
-      if (values.name !== name || values.email !== email) {
-        props.onUpdateUser({
-          name: values.name || name, 
-          email: values.email || email,
-        })
+      if (values.name) {
+        if (isValid) {
+          if (values.name !== currentUser.name) {
+            props.onUpdateUser({
+              name: values.name || name,
+              email: values.email || email
+            })
+            currentUser.name = values.name
+            setName(currentUser.name);
+          } else {
+            setButtonClick(false);
+            setDisabled(true);
+            setDisabledSubmitButton(true);
+            resetForm();
+            alert('Введите измененные данные')
+            return i=i++
+          }
+        } 
+        setButtonClick(false);
+        setDisabled(true);
+        setDisabledSubmitButton(true);
+        resetForm();
+        return i=0
       }
-    }
-    setButtonClick(false);
-    setDisabled(true);
-    setDisabledSubmitButton(true);
-    resetForm();
+      if (values.email) {
+        if (isValid) {
+          if (values.email !== currentUser.email) {
+            props.onUpdateUser({ 
+              name: values.name || name,
+              email: values.email || email
+            })
+            currentUser.email = values.email
+            setEmail(currentUser.email);
+          } else {
+            setButtonClick(false);
+            setDisabled(true);
+            setDisabledSubmitButton(true);
+            resetForm();
+            if (i===0) {
+            alert('Введите измененные данные')
+            }
+            }
+        } 
+        setButtonClick(false);
+        setDisabled(true);
+        setDisabledSubmitButton(true);
+        resetForm();
+       return i=0
+      }
   }
 
+  
   return (
     <main className="profile">
       <h1 className="profile__title">{`Привет, ${name}`}</h1>
