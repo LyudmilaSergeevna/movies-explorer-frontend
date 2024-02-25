@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Header from '../Header/Header';
 import { Routes, Route, useMatch, useNavigate } from 'react-router-dom';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import {ProtectedRoute, ProtectedLoginRegisterRoute } from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
@@ -300,8 +300,8 @@ function App() {
             loggedIn={loggedIn}
             logout={handleLogout}
             onUpdateUser={handleUpdateUser}/>} />   
-            <Route path="/signin" element={<Login handleLogin={handleLogin} tokenCheck={tokenCheck}/>} />
-            <Route path="/signup" element={<Register tokenCheck={tokenCheck} handleLogin={handleLogin}/>} />
+            <Route path="/signin" element={<ProtectedLoginRegisterRoute element={Login} handleLogin={handleLogin} tokenCheck={tokenCheck} loggedIn={loggedIn}/>} />
+            <Route path="/signup" element={<ProtectedLoginRegisterRoute element={Register} tokenCheck={tokenCheck} handleLogin={handleLogin} loggedIn={loggedIn} />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           {(routeMain || routeMovies ||routeSavedMovies) ? <Footer /> : <></>}
