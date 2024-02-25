@@ -140,8 +140,8 @@ function App() {
           handleFilterCheck(true)
         } else {
           handleFilterCheck(false)
-    setNoMatch(false);
-    setMovies(foundMovies);
+          setNoMatch(false);
+          setMovies(foundMovies);
       }}
   }
 
