@@ -80,6 +80,30 @@
   background-image: url('../../images/save4.svg');
 }  
 
+.movies-card__delete-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 0;
+  width: 30px;
+  height: 30px;
+  background-image: url('../../images/deletebutton.svg');
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  bottom: 40px;
+  right: 16px;
+  transition: ease .4s;
+  cursor: pointer;
+}
+
+.movies-card__delete-button:hover {
+  transform: scale(1.09);
+}
+
+
 @media (max-width: 769px) {
   .movies-card {
     max-width: 339px;

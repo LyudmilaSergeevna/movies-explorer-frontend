@@ -1,10 +1,8 @@
 import React from 'react';
 import { useMatch } from 'react-router-dom';
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function MoviesCard(props) {
   const routeSavedMovies = useMatch("/saved-movies");
-  const currentUser = React.useContext(CurrentUserContext);
   const hours = Math.trunc(props.movie.duration / 60);
   const minutes = props.movie.duration % 60;
   const isShort = (props.movie.duration < 60);
@@ -25,7 +23,7 @@ function MoviesCard(props) {
       </a>
       <h2 className="movies-card__title">{`${props.movie.nameRU}`}</h2>
       <p className="movies-card__duration">{!isShort ? `${hours}ч ${minutes}м` : `${props.movie.duration}м` }</p>
-      <button className={props.movie.liked===true || props.movie.owner === currentUser._id ? "movies-card__like-button movies-card__like-button_active" : "movies-card__like-button"} type="button" onClick={routeSavedMovies ? handleDeleteLikeClick : handleLikeClick}></button>
+      <button className={routeSavedMovies ? "movies-card__delete-button" : (props.movie.liked===true ? "movies-card__like-button movies-card__like-button_active" : "movies-card__like-button")} type="button" onClick={routeSavedMovies ? handleDeleteLikeClick : handleLikeClick}></button>
     </article>
   );
 }
