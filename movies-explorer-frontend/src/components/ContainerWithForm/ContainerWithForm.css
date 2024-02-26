@@ -76,6 +76,7 @@
   font-family: 'Inter','Arial', sans-serif;
   font-size: 10px;
   font-weight: 400;
+  
 }
 
 .container__submit-button {
@@ -99,6 +100,12 @@
   margin-bottom: 16px; 
   transition: ease .4s;
   cursor: pointer;
+}
+
+.container__submit-button_disabled {
+  background: #F8F8F8;
+  color: #C2C2C2;
+  cursor: auto;
 }
 
 .container__links {
@@ -139,6 +146,10 @@
 
 .container__submit-button:hover, .container__link:hover {
   opacity: 0.7;
+}
+
+.container__submit-button_disabled:hover {
+  opacity: 1;
 }
 
 .container__logo-link:hover {
