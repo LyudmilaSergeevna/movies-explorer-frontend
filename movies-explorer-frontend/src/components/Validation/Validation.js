@@ -1,4 +1,5 @@
-import React, { useCallback } from "react";
+import React, { useCallback} from "react";
+import { useMatch } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
@@ -10,6 +11,7 @@ export function useFormWithValidation() {
   const regexName = new RegExp(/^[a-zA-Zа-яА-Я\s\-]*$/)
   const regexEmail = new RegExp(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.([a-zA-Z-.]{2,})+$/)
   const currentUser = React.useContext(CurrentUserContext);
+  const routeProfile = useMatch("/profile");
 
   const handleChange = (event) => {
     const target = event.target;
@@ -34,7 +36,9 @@ export function useFormWithValidation() {
           }   
         } 
       } else {
+        if (routeProfile) {
         setErrors({...errors, [name]: 'Введите измененное имя'})
+        }
       }
     } else {
       if (name === "email") {
@@ -47,7 +51,9 @@ export function useFormWithValidation() {
               setErrors({...errors, [name]: validEmail ? '' : 'Некорректный email'})
           }
         } else {
+          if (routeProfile) {
           setErrors({...errors, [name]: 'Введите измененный email'})
+          }
         }
       } else {
         if (name === "password") {
@@ -64,7 +70,6 @@ export function useFormWithValidation() {
       } 
     }
 
-   // setIsValid(errors.name === '' && errors.email === '' ? true : true)
     setIsValid(target.closest("form").checkValidity());
 
   };

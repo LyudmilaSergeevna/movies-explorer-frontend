@@ -18,7 +18,6 @@ function Profile(props) {
   },[currentUser]); 
 
   React.useEffect(() => {
-    console.log(values)
     if (isChange) {
       if (values.name) {
         if (isValid && errors.name === '') {

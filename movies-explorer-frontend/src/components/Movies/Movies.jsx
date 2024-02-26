@@ -1,13 +1,11 @@
 import React from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import api from '../../utils/MainApi';
 
 function Movies(props) {
 
   const request = localStorage.getItem('request');
   const filter = localStorage.getItem('filter');
-  const [array, setArray] = React.useState([]);
   const foundMovies = JSON.parse(localStorage.getItem('foundMovies'));
   const filteredMovies = JSON.parse(localStorage.getItem('filteredMovies'));
   const [defaultMovies, setDefaultMovies] = React.useState(0);
@@ -18,41 +16,11 @@ function Movies(props) {
   React.useEffect(() => {
     if (foundMovies && request){
       if (filteredMovies && filter) {
-        likedMovies(filteredMovies)         
+        props.likedMovies(filteredMovies)         
       } else {
-        likedMovies(foundMovies)  
+        props.likedMovies(foundMovies)  
     }}
   }, []); 
-
-  function likedMovies(arr) {
-    let likedArr=[];
-    let filteredArr=[];
-    let toFilter=[]
-
-    api.getMovies()
-      .then((moviesArray) => {
-        if (moviesArray.length !== 0) {
-          moviesArray.forEach((movie) => {
-          arr.map((item) => (item.id === movie.movieId ? (likedArr.push({...item, liked: true,  _id: movie._id}), toFilter.push(item)) : likedArr.push(item)));
-          filteredArr = [...new Set(likedArr)]
-        })
-          toFilter.forEach((item) => {
-            return filteredArr.splice(filteredArr.indexOf(item), 1)
-          })
-          filteredArr.sort((a, b) => a.id > b.id ? 1 : -1)
-          props.setMovies(filteredArr)
-          setArray(filteredArr)   
-      } else {
-        props.setMovies(arr)
-        setArray(arr)
-      }
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(err)
-      })  
-
-    } 
 
   React.useEffect(() => {
     setDefaultMovies(0)
@@ -103,7 +71,7 @@ function Movies(props) {
   return (
     <main className="movies">
       <SearchForm onSearchSubmit={props.onSearchSubmit} inputText={request} setFiltered={props.setFiltered} onFilterClick={props.onFilterClick} />
-      <MoviesCardList array={array} i={i} movies={props.movies} preloader={props.preloader} noMatch={props.noMatch} apiError={props.apiError} likeMovie={props.onLikeMovie} isLiked={props.isLiked} defaultMovies={defaultMovies}/>
+      <MoviesCardList array={props.array} i={i} movies={props.movies} preloader={props.preloader} noMatch={props.noMatch} apiError={props.apiError} likeMovie={props.onLikeMovie} isLiked={props.isLiked} defaultMovies={defaultMovies}/>
       <button className={buttonHid ? "movies__more-button movies__more-button_hidden" : "movies__more-button"} type="button" onClick={handleMoreClick}>Ещё</button>
     </main>
   );

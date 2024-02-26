@@ -37,6 +37,7 @@ function App() {
   const navigate = useNavigate();
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [foundSavedMovies, setFoundSavedMovies] = React.useState([]);
+  const [array, setArray] = React.useState([]);
 
 
   React.useEffect(() => {
@@ -74,6 +75,36 @@ function App() {
     setMenuPopupOpen(false);
   }
 
+  function likedMovies(arr) {
+    let likedArr=[];
+    let filteredArr=[];
+    let toFilter=[]
+
+    api.getMovies()
+      .then((moviesArray) => {
+        if (moviesArray.length !== 0) {
+          moviesArray.forEach((movie) => {
+          arr.map((item) => (item.id === movie.movieId ? (likedArr.push({...item, liked: true,  _id: movie._id}), toFilter.push(item)) : likedArr.push(item)));
+          filteredArr = [...new Set(likedArr)]
+        })
+          toFilter.forEach((item) => {
+            return filteredArr.splice(filteredArr.indexOf(item), 1)
+          })
+          filteredArr.sort((a, b) => a.id > b.id ? 1 : -1)
+          setMovies(filteredArr)
+          setArray(filteredArr)   
+      } else {
+        setMovies(arr)
+        setArray(arr)
+      }
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err)
+      })  
+
+    } 
+
   function handleFilterCheck(filter) {
     const filteredMovies = [];
     const movies = JSON.parse(localStorage.getItem('foundMovies'));
@@ -89,7 +120,7 @@ function App() {
           } else { 
           localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
           localStorage.setItem('filter', filter);
-          setMovies(filteredMovies);
+          likedMovies(filteredMovies)
           }
     } else {
     localStorage.removeItem('filter');
@@ -142,7 +173,7 @@ function App() {
         } else {
           handleFilterCheck(false)
           setNoMatch(false);
-          setMovies(foundMovies);
+          likedMovies(foundMovies)
       }}
   }
 
@@ -290,7 +321,8 @@ function App() {
             noMatch={noMatch} 
             preloader={preloader} 
             apiError={bitfilmApiError}
-            setMovies={setMovies}
+            likedMovies={likedMovies}
+            array={array}
             setFiltered={setFiltered}  
             onSearchSubmit={handleSearchSubmit} 
             onLikeMovie={handleCardLike}/> } />
