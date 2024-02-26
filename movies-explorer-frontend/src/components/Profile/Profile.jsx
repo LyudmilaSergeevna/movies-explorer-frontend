@@ -18,14 +18,24 @@ function Profile(props) {
   },[currentUser]); 
 
   React.useEffect(() => {
+    console.log(values)
     if (isChange) {
-      if (isValid) {
-          setDisabledSubmitButton(false)
-        } else {
-          setDisabledSubmitButton(true)
+      if (values.name) {
+        if (isValid && errors.name === '') {
+            setDisabledSubmitButton(false)
+          } else {
+            setDisabledSubmitButton(true)
+          }
         }
+        if (values.email) {
+          if (isValid && errors.email === '') {
+              setDisabledSubmitButton(false)
+            } else {
+              setDisabledSubmitButton(true)
+            }
+          }            
     }
-  }, [isChange, isValid])
+  }, [isChange, isValid, errors])
 
   function handleClick() {
     setButtonClick(true);
@@ -107,7 +117,7 @@ function Profile(props) {
         </div>
         {!isButtonClick ? <><button className="profile__button" type="button" onClick={handleClick}>Редактировать</button>
         <Link to="/" className="profile__link" onClick={handleLogoutClick} >Выйти из аккаунта</Link></> : 
-        <><span className="profile__input-error">{errors.name}</span>
+        <><span className="profile__input-error">{errors.name || errors.email}</span>
         <button className={!disabledSubmitButton ? "profile__submit-button" : "profile__submit-button profile__submit-button_disabled"} type="submit" disabled={disabledSubmitButton}>Сохранить</button></>}
       </form>
     </main>
